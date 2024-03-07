@@ -1,0 +1,1 @@
+/Users/edasa001/.vscode-dotnet-sdk/.dotnet/packs/Microsoft.NETCore.App.Runtime.AOT.osx-x64.Cross.maccatalyst-arm64/8.0.2/Sdk/../tools/mono-aot-cross
