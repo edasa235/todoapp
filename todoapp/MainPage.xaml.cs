@@ -3,10 +3,9 @@ namespace todoapp;
 
 public partial class MainPage : ContentPage
 {
-
-    public MainPage(MainViewModel vm)
+    public MainPage()
     {
         InitializeComponent();
-        BindingContext = vm;
+        BindingContext = new MainViewModel("Host=localhost;Port=54324;Username=edasa001;Password=hello;Database=todoapp;");
     }
 }

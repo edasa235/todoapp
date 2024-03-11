@@ -21,11 +21,11 @@
         <member name="P:todoapp.viewmodel.MainViewModel.AddCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.Add"/>.</summary>
         </member>
-        <member name="F:todoapp.viewmodel.MainViewModel._deleteCommand">
-            <summary>The backing field for <see cref="P:todoapp.viewmodel.MainViewModel.deleteCommand"/>.</summary>
+        <member name="F:todoapp.viewmodel.MainViewModel.deleteCommand">
+            <summary>The backing field for <see cref="P:todoapp.viewmodel.MainViewModel.DeleteCommand"/>.</summary>
         </member>
-        <member name="P:todoapp.viewmodel.MainViewModel.deleteCommand">
-            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand`1"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.delete(System.String)"/>.</summary>
+        <member name="P:todoapp.viewmodel.MainViewModel.DeleteCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand`1"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.Delete(System.String)"/>.</summary>
         </member>
         <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
             <summary>

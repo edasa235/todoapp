@@ -1069,3 +1069,4 @@
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-android/stamp/_GenerateJavaStubs.stamp
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-android/stamp/_GeneratePackageManagerJava.stamp
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-android/stamp/_ResolveLibraryProjectImports.stamp
+/Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-android/todoapp.sourcelink.json
