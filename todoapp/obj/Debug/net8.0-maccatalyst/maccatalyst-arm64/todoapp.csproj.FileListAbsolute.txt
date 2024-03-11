@@ -293,6 +293,7 @@
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.AssemblyInfoInputs.cache
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.AssemblyInfo.cs
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.csproj.CoreCompileInputs.cache
+/Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.sourcelink.json
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/XamlC.stamp
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.csproj.CopyComplete
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.dll
@@ -300,4 +301,3 @@
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.pdb
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.genruntimeconfig.cache
 /Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/ref/todoapp.dll
-/Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/todoapp.sourcelink.json

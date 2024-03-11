@@ -1,5 +1,4 @@
 using Npgsql;
-using System;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -127,8 +126,8 @@ namespace todoapp.viewmodel
         {
             databaseHandler = new DatabaseHandler(connectionString);
             items = databaseHandler.GetTasks();
+            text = string.Empty; // Initialize 'text' to a non-null value
         }
-
         [ObservableProperty]
         ObservableCollection<string> items;
 
@@ -142,30 +141,32 @@ namespace todoapp.viewmodel
                 return;
 
             databaseHandler.AddTask(Text);
-            items = databaseHandler.GetTasks(); // Refresh the tasks after adding
+            Items = databaseHandler.GetTasks(); // Refresh the tasks after adding
             Text = string.Empty;
         }
 
         [RelayCommand]
         void Delete(string s)
         {
-            if (items.Contains(s))
+            if (Items.Contains(s))
             {
                 var taskId = GetTaskIdFromDisplayString(s);
                 databaseHandler.DeleteTask(taskId);
-                items = databaseHandler.GetTasks(); // Refresh the tasks after deleting
+                Items = databaseHandler.GetTasks(); // Refresh the tasks after deleting
             }
         }
+
         [RelayCommand]
-        public void CompleteCommand(string s)
+        public void Complete(string s)
         {
-            if (items.Contains(s))
+            if (Items.Contains(s))
             {
                 var taskId = GetTaskIdFromDisplayString(s);
                 databaseHandler.UpdateTask(taskId);
-                items = databaseHandler.GetTasks(); // Refresh the tasks after marking as completed
+                Items = databaseHandler.GetTasks(); // Refresh the tasks after marking as completed
             }
         }
+
 
         // Helper method to extract Task ID from display string (assuming the format is "ID: {id}, Task: {task}, Completed: {completed}")
         private int GetTaskIdFromDisplayString(string displayString)

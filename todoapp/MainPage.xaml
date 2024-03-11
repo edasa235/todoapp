@@ -28,35 +28,36 @@
             
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type x:String}">
-                    <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItems>
-                                <SwipeItem Text="delete"
-                                           BackgroundColor="Red"
-                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
-                                           CommandParameter="{Binding .}">
-                                </SwipeItem>
-                            </SwipeItems>
-                        </SwipeView.RightItems>
-                        </SwipeView>
+                    <Grid>
                         <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
+                                               CommandParameter="{Binding .}">
+                                    </SwipeItem>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
                             <SwipeView.LeftItems>
                                 <SwipeItems>
                                     <SwipeItem Text="completed"
                                                BackgroundColor="LawnGreen"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CompleteCommandCommand}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CompleteCommand}"
                                                CommandParameter="{Binding .}">
                                     </SwipeItem>
                                 </SwipeItems>
                             </SwipeView.LeftItems>
-                        <Grid Padding="0.5">
-                            <Frame>
-                                <Label Text="{Binding .}"
-                                       FontSize="24"/>
-                            </Frame>
-                        </Grid>
-                    </SwipeView>
+                            <Grid Padding="0.5">
+                                <Frame>
+                                    <Label Text="{Binding .}"
+                                           FontSize="24"/>
+                                </Frame>
+                            </Grid>
+                        </SwipeView>
+                    </Grid>
                 </DataTemplate>
+
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
