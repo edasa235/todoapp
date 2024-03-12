@@ -14,7 +14,7 @@ This is a simple Todo application built with .NET Multi-platform App UI (.NET MA
 ## prerequisite
 
 
-- code editor (vsc or jetbrainsrider)
+- code editor (vsc or jetbrainsrider)  i used rider
 - xcode
 - android studio
 - nuget(communitytoolkitmvvm)
