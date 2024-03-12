@@ -14,10 +14,10 @@ This is a simple Todo application built with .NET Multi-platform App UI (.NET MA
 ## prerequisite
 
 
-code editor (vsc or jetbrainsrider)
-xcode
-android studio
-nuget(communitytoolkitmvvm)
+- code editor (vsc or jetbrainsrider)
+- xcode
+- android studio
+- nuget(communitytoolkitmvvm)
 
 ## Installation
 
