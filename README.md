@@ -14,7 +14,7 @@ This is a simple Todo application built with .NET Multi-platform App UI (.NET MA
 ## prerequisite
 
 
-- code editor (vsc or jetbrainsrider)  i used rider
+- code editor (vsc or jetbrainsrider or vs) 
 - xcode
 - android studio
 - nuget(communitytoolkitmvvm)
@@ -24,4 +24,12 @@ This is a simple Todo application built with .NET Multi-platform App UI (.NET MA
 To run this application, you need to have .NET 6.0 or later installed on your machine. After cloning the repository, navigate to the project directory and run the following command:
 
 ```bash
-dotnet build
+dotnet workload install maui
+dotnet workload install maui-android
+dotnet workload install maui-ios
+
+
+## build
+dotnet maui run
+
+you can also press the run button if using vs or rider
