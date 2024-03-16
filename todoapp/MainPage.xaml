@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="todoapp.MainPage"
              xmlns:viewmodel="clr-namespace:todoapp.viewmodel"
+             xmlns:global="clr-namespace:"
              x:DataType="viewmodel:MainViewModel">
 
     <Grid RowDefinitions="100, auto, *"
@@ -20,11 +20,12 @@
                Grid.Row="1"/> 
          
         <Button Text="add"
-                Command="{Binding AddCommand}"
+                Command="{Binding AddCommandCommand}"
                 Grid.Row="1"
                 Grid.Column="1"/>
         <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
-                        ItemsSource="{Binding Items}">
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="None">
             
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type x:String}">
@@ -50,6 +51,13 @@
                             </SwipeView.LeftItems>
                             <Grid Padding="0.5">
                                 <Frame>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=EditCommand}"
+                                            CommandParameter="{Binding .}"/>
+
+                                    </Frame.GestureRecognizers>
+
                                     <Label Text="{Binding .}"
                                            FontSize="24"/>
                                 </Frame>
@@ -57,7 +65,6 @@
                         </SwipeView>
                     </Grid>
                 </DataTemplate>
-
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>

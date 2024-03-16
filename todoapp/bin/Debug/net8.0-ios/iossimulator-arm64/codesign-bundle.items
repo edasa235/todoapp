@@ -12,7 +12,7 @@
       <CodesignDisableTimestamp>true</CodesignDisableTimestamp>
       <CodesignKeychain></CodesignKeychain>
       <CodesignUseHardenedRuntime></CodesignUseHardenedRuntime>
-      <SourceProjectPath>/Users/edasa001/RiderProjects/todoapp/todoapp</SourceProjectPath>
+      <SourceProjectPath>/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp</SourceProjectPath>
     </_CodesignBundle>
   </ItemGroup>
 </Project>

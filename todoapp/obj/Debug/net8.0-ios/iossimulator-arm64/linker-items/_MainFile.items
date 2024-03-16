@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <_MainFile Include="/Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-ios/iossimulator-arm64/linker-cache/main.arm64.mm">
+    <_MainFile Include="/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-ios/iossimulator-arm64/linker-cache/main.arm64.mm">
       <Arch>arm64</Arch>
       <Arguments>-DDEBUG</Arguments>
     </_MainFile>

@@ -9,6 +9,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:todoapp.viewmodel.MainViewModel.Items">
             <inheritdoc cref="F:todoapp.viewmodel.MainViewModel.items"/>
@@ -16,17 +17,23 @@
         <member name="P:todoapp.viewmodel.MainViewModel.Text">
             <inheritdoc cref="F:todoapp.viewmodel.MainViewModel.text"/>
         </member>
-        <member name="F:todoapp.viewmodel.MainViewModel.addCommand">
-            <summary>The backing field for <see cref="P:todoapp.viewmodel.MainViewModel.AddCommand"/>.</summary>
+        <member name="F:todoapp.viewmodel.MainViewModel.addCommandCommand">
+            <summary>The backing field for <see cref="P:todoapp.viewmodel.MainViewModel.AddCommandCommand"/>.</summary>
         </member>
-        <member name="P:todoapp.viewmodel.MainViewModel.AddCommand">
-            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.Add"/>.</summary>
+        <member name="P:todoapp.viewmodel.MainViewModel.AddCommandCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.AddCommand"/>.</summary>
         </member>
         <member name="F:todoapp.viewmodel.MainViewModel.deleteCommand">
             <summary>The backing field for <see cref="P:todoapp.viewmodel.MainViewModel.DeleteCommand"/>.</summary>
         </member>
         <member name="P:todoapp.viewmodel.MainViewModel.DeleteCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand`1"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.Delete(System.String)"/>.</summary>
+        </member>
+        <member name="F:todoapp.viewmodel.MainViewModel.editCommand">
+            <summary>The backing field for <see cref="P:todoapp.viewmodel.MainViewModel.EditCommand"/>.</summary>
+        </member>
+        <member name="P:todoapp.viewmodel.MainViewModel.EditCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand`1"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.Edit(System.String)"/>.</summary>
         </member>
         <member name="F:todoapp.viewmodel.MainViewModel.completeCommand">
             <summary>The backing field for <see cref="P:todoapp.viewmodel.MainViewModel.CompleteCommand"/>.</summary>

@@ -1,5 +1,7 @@
+using System;
 using Npgsql;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -41,7 +43,7 @@ namespace todoapp.viewmodel
                     cmd.ExecuteNonQuery();
                 }
 
-                Console.WriteLine("Task added successfully!");
+             
             }
         }
 
@@ -80,18 +82,25 @@ namespace todoapp.viewmodel
                 {
                     cmd.Parameters.AddWithValue("id", taskId);
                     int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
-                    {
-                        Console.WriteLine("Task updated successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Task not found.");
-                    }
                 }
             }
         }
+        public void UpdateTaskName(int taskId, string newTaskName)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                conn.Open();
+
+                var sql = "UPDATE todos SET task = @task WHERE id = @id";
+                using (var cmd = new NpgsqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("id", taskId);
+                    cmd.Parameters.AddWithValue("task", newTaskName);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
         public void DeleteTask(int taskId)
         {
@@ -104,15 +113,6 @@ namespace todoapp.viewmodel
                 {
                     cmd.Parameters.AddWithValue("id", taskId);
                     int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
-                    {
-                        Console.WriteLine("Task deleted successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Task not found.");
-                    }
                 }
             }
         }
@@ -135,7 +135,8 @@ namespace todoapp.viewmodel
         string text;
 
         [RelayCommand]
-        void Add()
+    
+        void AddCommand()
         {
             if (string.IsNullOrWhiteSpace(Text))
                 return;
@@ -155,6 +156,23 @@ namespace todoapp.viewmodel
                 Items = databaseHandler.GetTasks(); // Refresh the tasks after deleting
             }
         }
+        
+       
+        private async Task<string> PromptUserForNewTaskNameAsync()
+        {
+            return await App.Current.MainPage.DisplayPromptAsync("Edit Task", "Enter the new task name:", "OK", "Cancel", "New Task Name");
+        }
+        [RelayCommand]
+        public async void Edit(string s)
+        {
+            if (Items.Contains(s))
+            {
+                var taskId = GetTaskIdFromDisplayString(s);
+                var newTaskName = await PromptUserForNewTaskNameAsync(); // Await here
+                databaseHandler.UpdateTaskName(taskId, newTaskName);
+                Items = databaseHandler.GetTasks(); // Refresh the tasks after editing
+            }
+        }
 
         [RelayCommand]
         public void Complete(string s)
@@ -166,8 +184,6 @@ namespace todoapp.viewmodel
                 Items = databaseHandler.GetTasks(); // Refresh the tasks after marking as completed
             }
         }
-
-
         // Helper method to extract Task ID from display string (assuming the format is "ID: {id}, Task: {task}, Completed: {completed}")
         private int GetTaskIdFromDisplayString(string displayString)
         {

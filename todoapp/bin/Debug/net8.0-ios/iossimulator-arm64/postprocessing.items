@@ -7,9 +7,9 @@
       <dSYMSourcePathExists>false</dSYMSourcePathExists>
       <NoSymbolStrip>true</NoSymbolStrip>
       <dSYMInfoPlistRelativePath>todoapp.app.dSYM\Contents\Info.plist</dSYMInfoPlistRelativePath>
-      <SymbolFile>/Users/edasa001/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-ios/iossimulator-arm64/mtouch-symbols.list</SymbolFile>
+      <SymbolFile>/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/obj/Debug/net8.0-ios/iossimulator-arm64/mtouch-symbols.list</SymbolFile>
       <DSymName>todoapp.app.dSYM</DSymName>
-      <SourceProjectPath>/Users/edasa001/RiderProjects/todoapp/todoapp</SourceProjectPath>
+      <SourceProjectPath>/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp</SourceProjectPath>
     </_PostProcessingItem>
   </ItemGroup>
 </Project>

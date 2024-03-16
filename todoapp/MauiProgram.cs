@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
 using todoapp.viewmodel;
+
 
 namespace todoapp;
 
@@ -18,6 +22,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainViewModel>();
+        
 
 #if DEBUG
         builder.Logging.AddDebug();

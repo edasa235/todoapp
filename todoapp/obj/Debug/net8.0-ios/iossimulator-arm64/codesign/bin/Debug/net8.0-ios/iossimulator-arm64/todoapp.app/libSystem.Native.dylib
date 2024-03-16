@@ -1,1 +1,1 @@
--v --force --timestamp=none --sign - /Users/edasa001/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/todoapp.app/libSystem.Native.dylib
+-v --force --timestamp=none --sign - /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/todoapp.app/libSystem.Native.dylib

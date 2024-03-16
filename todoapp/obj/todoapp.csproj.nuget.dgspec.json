@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/edasa001/RiderProjects/todoapp/todoapp/todoapp.csproj": {}
+    "/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/todoapp.csproj": {}
   },
   "projects": {
-    "/Users/edasa001/RiderProjects/todoapp/todoapp/todoapp.csproj": {
+    "/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/todoapp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/edasa001/RiderProjects/todoapp/todoapp/todoapp.csproj",
+        "projectUniqueName": "/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/todoapp.csproj",
         "projectName": "todoapp",
-        "projectPath": "/Users/edasa001/RiderProjects/todoapp/todoapp/todoapp.csproj",
+        "projectPath": "/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/todoapp.csproj",
         "packagesPath": "/Users/edasa001/.nuget/packages/",
-        "outputPath": "/Users/edasa001/RiderProjects/todoapp/todoapp/obj/",
+        "outputPath": "/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
@@ -59,17 +59,21 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Npgsql": {
               "target": "Package",
@@ -87,6 +91,36 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.Android.Runtime.34.android-arm64",
+              "version": "[34.0.85, 34.0.85]"
+            },
+            {
+              "name": "Microsoft.Android.Runtime.34.android-x64",
+              "version": "[34.0.85, 34.0.85]"
+            },
+            {
+              "name": "Microsoft.Android.Runtime.34.android-x86",
+              "version": "[34.0.85, 34.0.85]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.android-arm",
+              "version": "[8.0.3, 8.0.3]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.android-arm64",
+              "version": "[8.0.3, 8.0.3]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.android-x64",
+              "version": "[8.0.3, 8.0.3]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.android-x86",
+              "version": "[8.0.3, 8.0.3]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.Android": {
               "privateAssets": "all"
@@ -110,17 +144,21 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Npgsql": {
               "target": "Package",
@@ -161,17 +199,21 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Npgsql": {
               "target": "Package",
