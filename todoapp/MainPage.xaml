@@ -12,7 +12,7 @@
           ColumnSpacing="10">
          
         <Image Grid.ColumnSpan="2"
-               Source="dotnet_bot.png"
+               Source="download.png"
                BackgroundColor="Transparent"/>
          
         <Entry Placeholder="enter task"

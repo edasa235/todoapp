@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "GerTtnQT+nJ5W2CXZaEQMQiL5K5ujYX4i4kYpHxo5qrLxQtfvtBpTGoAwzdyVJAtqKWsH6JchUB55QY59MlkaQ==",
+  "dgSpecHash": "roWFgK7i44+P2Nx7lv6VWUddenfu9lu08WAgtLJleSd+Sgf2xFWpV6vJn5c8zUhW7qWSblcHsBweFinH/1tVKg==",
   "success": true,
   "projectFilePath": "/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/todoapp.csproj",
   "expectedPackageFiles": [
+    "/Users/edasa001/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/edasa001/.nuget/packages/communitytoolkit.mvvm/8.2.2/communitytoolkit.mvvm.8.2.2.nupkg.sha512",
     "/Users/edasa001/.nuget/packages/googlegson/2.10.1.4/googlegson.2.10.1.4.nupkg.sha512",
     "/Users/edasa001/.nuget/packages/microsoft.extensions.configuration/8.0.0/microsoft.extensions.configuration.8.0.0.nupkg.sha512",

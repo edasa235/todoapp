@@ -42,8 +42,6 @@ namespace todoapp.viewmodel
                     cmd.Parameters.AddWithValue("task", task);
                     cmd.ExecuteNonQuery();
                 }
-
-             
             }
         }
 

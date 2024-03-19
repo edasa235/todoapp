@@ -34,6 +34,7 @@
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/publish/../todoapp.app/zh-Hans/Microsoft.Maui.Controls.resources.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/publish/../todoapp.app/zh-Hant/Microsoft.Maui.Controls.resources.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/publish/../todoapp.app/runtimeconfig.bin
+/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/publish/../todoapp.app/BCrypt.Net-Next.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/publish/../todoapp.app/CommunityToolkit.Mvvm.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/publish/../todoapp.app/Microsoft.Extensions.Configuration.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-ios/iossimulator-arm64/publish/../todoapp.app/Microsoft.Extensions.Configuration.Abstractions.dll

@@ -45,3 +45,9 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = todoapp.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources/Styles/Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources/Styles/Styles.xaml
+
+[/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/signupage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = todoapp.signupage.xaml
+build_metadata.AdditionalFiles.TargetPath = signupage.xaml
+build_metadata.AdditionalFiles.RelativePath = signupage.xaml

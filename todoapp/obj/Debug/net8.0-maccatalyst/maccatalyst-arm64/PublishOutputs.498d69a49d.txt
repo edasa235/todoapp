@@ -34,6 +34,7 @@
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/publish/../todoapp.app/Contents/MonoBundle/zh-Hans/Microsoft.Maui.Controls.resources.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/publish/../todoapp.app/Contents/MonoBundle/zh-Hant/Microsoft.Maui.Controls.resources.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/publish/../todoapp.app/Contents/MonoBundle/runtimeconfig.bin
+/Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/publish/../todoapp.app/Contents/MonoBundle/BCrypt.Net-Next.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/publish/../todoapp.app/Contents/MonoBundle/CommunityToolkit.Mvvm.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/publish/../todoapp.app/Contents/MonoBundle/Microsoft.Extensions.Configuration.dll
 /Users/edasa001/Repositories/RiderProjects/todoapp/todoapp/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/publish/../todoapp.app/Contents/MonoBundle/Microsoft.Extensions.Configuration.Abstractions.dll
