@@ -8,7 +8,7 @@ This is a simple Todo application built with .NET Multi-platform App UI (.NET MA
 - Add new tasks
 - Mark tasks as completed
 - Delete tasks
-- Edit existing tasks( WIP)
+- Edit existing tasks
 
 
 ## prerequisite
