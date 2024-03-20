@@ -10,7 +10,6 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
-            <inheritdoc/>
         </member>
         <member name="P:todoapp.viewmodel.MainViewModel.Items">
             <inheritdoc cref="F:todoapp.viewmodel.MainViewModel.items"/>
@@ -41,21 +40,6 @@
         </member>
         <member name="P:todoapp.viewmodel.MainViewModel.CompleteCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand`1"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.Complete(System.String)"/>.</summary>
-        </member>
-        <member name="F:todoapp.viewmodel.MainViewModel.tapCommand">
-            <summary>The backing field for <see cref="P:todoapp.viewmodel.MainViewModel.TapCommand"/>.</summary>
-        </member>
-        <member name="P:todoapp.viewmodel.MainViewModel.TapCommand">
-            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:todoapp.viewmodel.MainViewModel.Tap(System.String)"/>.</summary>
-        </member>
-        <member name="T:todoapp.viewmodel.signupviewmodel">
-            <inheritdoc/>
-        </member>
-        <member name="F:todoapp.viewmodel.signupviewmodel.tapCommandCommand">
-            <summary>The backing field for <see cref="P:todoapp.viewmodel.signupviewmodel.TapCommandCommand"/>.</summary>
-        </member>
-        <member name="P:todoapp.viewmodel.signupviewmodel.TapCommandCommand">
-            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:todoapp.viewmodel.signupviewmodel.TapCommand(System.String)"/>.</summary>
         </member>
         <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
             <summary>

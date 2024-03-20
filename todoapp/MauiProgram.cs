@@ -22,7 +22,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainViewModel>();
-        builder.Services.AddTransient<signupage>();
+        builder.Services.AddTransient<SignupPage>();
         builder.Services.AddTransient<signupviewmodel>();
 
 #if DEBUG

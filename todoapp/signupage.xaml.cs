@@ -1,12 +1,19 @@
 using Microsoft.Maui.Controls;
-using todoapp.viewmodel;
-namespace todoapp;
+using todoapp;
 
-public partial class signupage : ContentPage
+namespace todoapp
 {
-    public signupage()
+    public partial class SignupPage : ContentPage
     {
-        InitializeComponent();
-        BindingContext = new MainViewModel("Host=localhost;Port=54324;Username=edasa001;Password=hello;Database=todoapp;");
+        public SignupPage()
+        {
+            InitializeComponent();
+            
+        }
+
+        private async void NavigateToMainPage()
+        {
+            await Navigation.PushAsync(new MainPage());
+        }
     }
 }

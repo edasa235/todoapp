@@ -1,15 +1,16 @@
-﻿
-
+﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
-namespace todoapp;
-
-public partial class App : Application
+namespace todoapp
 {
-    public App()
+    public partial class App : Application
     {
-        InitializeComponent();
+        public App()
+        {
+            InitializeComponent();
 
-        MainPage = new AppShell();
+            // Set the main page to your SignupPage
+            MainPage = new SignupPage();
+        }
     }
 }

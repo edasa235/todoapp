@@ -1,12 +1,13 @@
-﻿using Microsoft.Maui.Controls;
-using todoapp.viewmodel;
-namespace todoapp;
+﻿using todoapp.viewmodel;
 
-public partial class MainPage : ContentPage
+namespace todoapp
 {
-    public MainPage()
+    public partial class MainPage : ContentPage
     {
-        InitializeComponent();
-        BindingContext = new MainViewModel("Host=localhost;Port=54324;Username=edasa001;Password=hello;Database=todoapp;");
+        public MainPage()
+        {
+            InitializeComponent();
+            BindingContext = new MainViewModel("Host=localhost;Port=54324;Username=edasa001;Password=hello;Database=todoapp;");
+        }
     }
 }

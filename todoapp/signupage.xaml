@@ -1,8 +1,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="todoapp.signupage"
+             x:Class="todoapp.SignupPage"
              xmlns:viewmodel="clr-namespace:todoapp.viewmodel"
-             xmlns:local="clr-namespace:todoapp"
              x:DataType="viewmodel:signupviewmodel">
 
     <ContentPage.BindingContext>
@@ -19,25 +18,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Image in top right corner -->
-        <ContentView Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start">
-            <Image Source="home_button.png" BackgroundColor="Transparent"
-                   HeightRequest="100"
-                   WidthRequest="100">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding TapCommandCommand}" CommandParameter="Text to pass"/>
-
-                </Image.GestureRecognizers>
-            </Image>
-
-        </ContentView>
-
-        <!-- Other elements -->
         <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
             <Entry Placeholder="enter username"
                    Text="{Binding Username}"
-                   WidthRequest="400"
                    HeightRequest="40"/>
             <Entry Placeholder="enter password"
                    Text="{Binding Password}"
@@ -50,4 +33,3 @@
         </StackLayout>
     </Grid>
 </ContentPage>
-
