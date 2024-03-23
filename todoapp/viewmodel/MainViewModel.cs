@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-
 namespace todoapp.viewmodel
 {
     public class DatabaseHandler
@@ -15,6 +14,27 @@ namespace todoapp.viewmodel
         public DatabaseHandler(string connectionString)
         {
             connString = connectionString;
+            Initialize();
+        }
+
+        private async void Initialize()
+        {
+            // Display pop-up asking user to sign up or login
+            var result = await App.Current.MainPage.DisplayActionSheet("Welcome!", null, null, "Sign Up", "Login");
+
+            // Handle user's choice
+            switch (result)
+            {
+                case "Sign Up":
+                    await Shell.Current.GoToAsync(nameof(SignupPage));
+                    break;
+                case "Login":
+                    await Shell.Current.GoToAsync(nameof(LoginPage));
+                    break;
+                default:
+                    // Handle default case or do nothing
+                    break;
+            }
         }
 
         public void AddTask(string task)
@@ -24,7 +44,7 @@ namespace todoapp.viewmodel
                 conn.Open();
 
                 // Check the maximum existing ID in the 'todos' table
-                var getMaxIdSql = "SELECT COALESCE(MAX(id), 0) FROM todos";
+                var getMaxIdSql = "SELECT COALESCE(MAX(taskid), 0) FROM todos";
                 int maxId;
 
                 using (var getMaxIdCmd = new NpgsqlCommand(getMaxIdSql, conn))
@@ -35,7 +55,7 @@ namespace todoapp.viewmodel
                 // Increment the ID for the new task
                 var newTaskId = maxId + 1;
 
-                var sql = "INSERT INTO todos (id, task, completed) VALUES (@id, @task, false)";
+                var sql = "INSERT INTO todos (taskid, task, completed) VALUES (@id, @task, false)";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("id", newTaskId);
@@ -75,7 +95,7 @@ namespace todoapp.viewmodel
             {
                 conn.Open();
 
-                var sql = "UPDATE todos SET completed = true WHERE id = @id";
+                var sql = "UPDATE todos SET completed = true WHERE taskid = @id";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("id", taskId);
@@ -83,13 +103,14 @@ namespace todoapp.viewmodel
                 }
             }
         }
+
         public void UpdateTaskName(int taskId, string newTaskName)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
 
-                var sql = "UPDATE todos SET task = @task WHERE id = @id";
+                var sql = "UPDATE todos SET task = @task WHERE taskid = @id";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("id", taskId);
@@ -99,14 +120,13 @@ namespace todoapp.viewmodel
             }
         }
 
-
         public void DeleteTask(int taskId)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
 
-                var sql = "DELETE FROM todos WHERE id = @id";
+                var sql = "DELETE FROM todos WHERE taskid = @id";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("id", taskId);
@@ -126,6 +146,7 @@ namespace todoapp.viewmodel
             items = databaseHandler.GetTasks();
             text = string.Empty; // Initialize 'text' to a non-null value
         }
+
         [ObservableProperty]
         ObservableCollection<string> items;
 
@@ -133,7 +154,6 @@ namespace todoapp.viewmodel
         string text;
 
         [RelayCommand]
-    
         void AddCommand()
         {
             if (string.IsNullOrWhiteSpace(Text))
@@ -154,12 +174,12 @@ namespace todoapp.viewmodel
                 Items = databaseHandler.GetTasks(); // Refresh the tasks after deleting
             }
         }
-        
-       
+
         private async Task<string> PromptUserForNewTaskNameAsync()
         {
             return await App.Current.MainPage.DisplayPromptAsync("Edit Task", "Enter the new task name:", "OK", "Cancel", "New Task Name");
         }
+
         [RelayCommand]
         public async void Edit(string s)
         {
@@ -182,6 +202,7 @@ namespace todoapp.viewmodel
                 Items = databaseHandler.GetTasks(); // Refresh the tasks after marking as completed
             }
         }
+
         // Helper method to extract Task ID from display string (assuming the format is "ID: {id}, Task: {task}, Completed: {completed}")
         private int GetTaskIdFromDisplayString(string displayString)
         {

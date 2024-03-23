@@ -61,6 +61,7 @@
                                     <Label Text="{Binding .}"
                                            FontSize="24"/>
                                 </Frame>
+                                
                             </Grid>
                         </SwipeView>
                     </Grid>

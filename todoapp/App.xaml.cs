@@ -10,7 +10,7 @@ namespace todoapp
             InitializeComponent();
 
             // Set the main page to your SignupPage
-            MainPage = new SignupPage();
+            MainPage = new NavigationPage(new SignupPage());
         }
     }
 }

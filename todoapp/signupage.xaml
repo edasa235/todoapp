@@ -30,6 +30,10 @@
                     Command="{Binding SignupCommand}"
                     WidthRequest="400"
                     HeightRequest="40"/>
+            <Button Text="logg in side"
+                    Command="{Binding NavigateToLoginCommand}"
+                    WidthRequest="400"
+                    HeightRequest="40"/>
         </StackLayout>
     </Grid>
 </ContentPage>

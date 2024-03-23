@@ -11,9 +11,6 @@ namespace todoapp
             
         }
 
-        private async void NavigateToMainPage()
-        {
-            await Navigation.PushAsync(new MainPage());
-        }
+      
     }
 }

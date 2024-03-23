@@ -7,11 +7,15 @@
     Shell.FlyoutBehavior="Disabled"
     Title="todoapp">
 
-    <ShellItem>
+    <ShellItem Route="Main">
         <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
     </ShellItem>
-
-    <ShellItem>
+    
+    <ShellItem Route="Login">
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </ShellItem>
+    
+    <ShellItem Route="Signup">
         <ShellContent Route="SignupPage" ContentTemplate="{DataTemplate local:SignupPage}" />
     </ShellItem>
    
