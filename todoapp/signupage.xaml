@@ -1,0 +1,39 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="todoapp.SignupPage"
+             xmlns:viewmodel="clr-namespace:todoapp.viewmodel"
+             x:DataType="viewmodel:signupviewmodel">
+
+    <ContentPage.BindingContext>
+        <viewmodel:signupviewmodel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+            <Entry Placeholder="enter username"
+                   Text="{Binding Username}"
+                   HeightRequest="40"/>
+            <Entry Placeholder="enter password"
+                   Text="{Binding Password}"
+                   WidthRequest="400" 
+                   HeightRequest="40"/>
+            <Button Text="sign up"
+                    Command="{Binding SignupCommand}"
+                    WidthRequest="400"
+                    HeightRequest="40"/>
+            <Button Text="logg in side"
+                    Command="{Binding NavigateToLoginCommand}"
+                    WidthRequest="400"
+                    HeightRequest="40"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>
