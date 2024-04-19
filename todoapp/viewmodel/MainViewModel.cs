@@ -9,7 +9,7 @@ namespace todoapp.viewmodel
 {
     public class DatabaseHandler
     {
-        private string connString = "Host=localhost;Port=54324;Username=edasa001;Password=hello;Database=todoapp;";
+        private string connString;
 
         public DatabaseHandler(string connectionString)
         {
@@ -42,7 +42,8 @@ namespace todoapp.viewmodel
                 }
             }
         }
-        public ObservableCollection<string> GetTasks(int userId)
+
+        public ObservableCollection<string> GetTasks()
         {
             ObservableCollection<string> tasks = new ObservableCollection<string>();
 
@@ -50,10 +51,9 @@ namespace todoapp.viewmodel
             {
                 conn.Open();
 
-                var sql = "SELECT * FROM todo WHERE user_id = @UserId ORDER BY priority DESC";
+                var sql = "SELECT * FROM todo ORDER BY priority DESC";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 {
-                    cmd.Parameters.AddWithValue("UserId", userId);
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -66,7 +66,6 @@ namespace todoapp.viewmodel
 
             return tasks;
         }
-
 
         public void IncreasePriority(int taskId)
         {
@@ -148,21 +147,24 @@ namespace todoapp.viewmodel
     public partial class MainViewModel : ObservableObject
     {
         private DatabaseHandler databaseHandler;
-        private int userId; // Property to store the user ID
+        private readonly string _connectionString;
 
-        public int UserId
+        public MainViewModel(string connectionString)
         {
-            get => userId;
-            set => SetProperty(ref userId, value);
-        }
-
-        public MainViewModel(string connectionString, int loggedInUserId)
-        {
-            databaseHandler = new DatabaseHandler(connectionString);
-            UserId = loggedInUserId; // Set the user ID property
-            items = databaseHandler.GetTasks(UserId); // Pass the UserId property
+            _connectionString = connectionString;
+            databaseHandler = new DatabaseHandler(_connectionString);
+            items = new ObservableCollection<string>(); // Initialize empty collection initially
             text = string.Empty; // Initialize 'text' to a non-null value
+    
+            // Call LoadTasks method here
+            LoadTasks();
         }
+        
+        private void LoadTasks()
+        {
+            items = databaseHandler.GetTasks();
+        }
+
         [ObservableProperty]
         ObservableCollection<string> items;
 
@@ -176,18 +178,21 @@ namespace todoapp.viewmodel
                 return;
 
             databaseHandler.AddTask(Text, 0); // Assign default priority of 0
-            Items = databaseHandler.GetTasks(UserId); // Pass the userId
+            Items = databaseHandler.GetTasks(); // Refresh the tasks after adding
             Text = string.Empty;
-        }[RelayCommand]
+        }
+
+        [RelayCommand]
         void Delete(string s)
         {
             if (Items.Contains(s))
             {
                 var taskId = GetTaskIdFromDisplayString(s);
                 databaseHandler.DeleteTask(taskId);
-                Items = databaseHandler.GetTasks(UserId); // Pass the userId
+                Items = databaseHandler.GetTasks(); // Refresh the tasks after deleting
             }
         }
+
         private async Task<string> PromptUserForNewTaskNameAsync()
         {
             return await App.Current.MainPage.DisplayPromptAsync("Edit Task", "Enter the new task name:", "OK", "Cancel", "New Task Name");
@@ -201,7 +206,7 @@ namespace todoapp.viewmodel
                 var taskId = GetTaskIdFromDisplayString(s);
                 var newTaskName = await PromptUserForNewTaskNameAsync(); // Await here
                 databaseHandler.UpdateTaskName(taskId, newTaskName);
-                Items = databaseHandler.GetTasks(UserId); // Pass the userId
+                Items = databaseHandler.GetTasks(); // Refresh the tasks after editing
             }
         }
 
@@ -212,7 +217,7 @@ namespace todoapp.viewmodel
             {
                 var taskId = GetTaskIdFromDisplayString(s);
                 databaseHandler.UpdateTask(taskId);
-                Items = databaseHandler.GetTasks(UserId); // Pass the userId
+                Items = databaseHandler.GetTasks(); // Refresh the tasks after marking as completed
             }
         }
 
@@ -223,7 +228,7 @@ namespace todoapp.viewmodel
             {
                 var taskId = GetTaskIdFromDisplayString(s);
                 databaseHandler.IncreasePriority(taskId);
-                Items = databaseHandler.GetTasks(UserId); // Pass the userId
+                Items = databaseHandler.GetTasks(); // Refresh the tasks after increasing priority
             }
         }
 
@@ -234,7 +239,7 @@ namespace todoapp.viewmodel
             {
                 var taskId = GetTaskIdFromDisplayString(s);
                 databaseHandler.DecreasePriority(taskId);
-                Items = databaseHandler.GetTasks(UserId); // Pass the userId
+                Items = databaseHandler.GetTasks(); // Refresh the tasks after decreasing priority
             }
         }
 

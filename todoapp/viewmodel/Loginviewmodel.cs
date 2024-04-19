@@ -1,84 +1,99 @@
-
-
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
-using Npgsql;
-using BCrypt;
-using System;
+using todoapp;
 
 namespace todoapp.viewmodel
 {
-    public partial class LoginViewModel : ObservableRecipient
+    public class LoginViewModel : ObservableRecipient
     {
-        private string username;
-        private string password;
-        private string connString;
+        private string _username;
+        private string _password;
+        private readonly string _connectionString = "Host=localhost;Port=54324;Username=edasa001;Password=hello;Database=todoapp";
 
         public string Username
         {
-            get => username;
-            set => SetProperty(ref username, value);
+            get => _username;
+            set => SetProperty(ref _username, value);
         }
 
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
 
-        public RelayCommand LoginCommand { get; }
+        public ICommand LoginCommand { get; }
 
         public LoginViewModel()
         {
-            connString = "Host=localhost;Port=54324;Username=edasa001;Password=hello;Database=todoapp;";
-            LoginCommand = new RelayCommand(Login);
+            LoginCommand = new RelayCommand(async () => await Login());
         }
 
-        public async void Login()
+        private async Task Login()
         {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Please enter both username and password.", "OK");
-                return;
-            }
-
             try
             {
-                using (var conn = new NpgsqlConnection(connString))
+                if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
                 {
-                    conn.Open();
+                    // Display error message for empty username or password
+                    await Application.Current.MainPage.DisplayAlert("Error", "Please enter username and password.", "OK");
+                    return;
+                }
 
-                    var sql = "SELECT password FROM users WHERE username = @Username";
-                    using (var cmd = new NpgsqlCommand(sql, conn))
+                // Establish connection to PostgreSQL database
+                using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    // Construct SQL query
+                    var command = new Npgsql.NpgsqlCommand(
+                        "SELECT password FROM users WHERE username = @Username", connection);
+                    command.Parameters.AddWithValue("Username", Username);
+
+                    // Execute SQL query
+                    var hashedPassword = (string)await command.ExecuteScalarAsync();
+
+                    // Verify password
+                    if (hashedPassword != null && BCrypt.Net.BCrypt.Verify(Password, hashedPassword))
                     {
-                        cmd.Parameters.AddWithValue("Username", Username);
-                        var hashedPassword = cmd.ExecuteScalar() as string;
-
-                        if (hashedPassword != null && BCrypt.Net.BCrypt.Verify(Password, hashedPassword))
-                        {
-                            if (Application.Current.MainPage is NavigationPage navigationPage)
-                            {
-                                await navigationPage.PushAsync(new MainPage());
-                                await Application.Current.MainPage.DisplayAlert("Success", "Navigated to login page successfully.", "OK");
-                            }
-                        }
-                        else
-                        {
-                            await Application.Current.MainPage.DisplayAlert("Error", "Invalid username or password.", "OK");
-                        }
+                        // Navigate to main page
+                        await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
+                    }
+                    else
+                    {
+                        // Display error message for incorrect username or password
+                        await Application.Current.MainPage.DisplayAlert("Error", "Invalid username or password.", "OK");
                     }
                 }
             }
-            catch (NpgsqlException ex)
+            catch (Npgsql.PostgresException ex)
             {
-                Console.WriteLine($"Npgsql Error: {ex}");
-                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred during login. Please check the logs for more details.", "OK");
+                // Handle PostgreSQL exceptions
+                string errorMessage = ex.SqlState switch
+                {
+                    // Add specific error messages for different PostgreSQL error codes if needed
+                    _ => "An error occurred during login."
+                };
+
+                // Log error message
+                Console.WriteLine(errorMessage);
+
+                // Display error message
+                await Application.Current.MainPage.DisplayAlert("Error", errorMessage, "OK");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex}");
-                await Application.Current.MainPage.DisplayAlert("Error", "An unexpected error occurred during login. Please check the logs for more details.", "OK");
+                // Handle general exceptions
+                // Log error message
+                Console.WriteLine(ex.Message);
+
+                // Display error message
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred during login.", "OK");
             }
         }
     }

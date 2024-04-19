@@ -5,34 +5,13 @@
              x:DataType="viewmodel:LoginViewModel">
 
     <ContentPage.BindingContext>
-        <viewmodel:LoginViewModel />
+        <viewmodel:LoginViewModel/>
     </ContentPage.BindingContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
-            <Entry Placeholder="enter username"
-                   Text="{Binding Username, Mode=TwoWay}"
-                   HeightRequest="40"/>
-            <Entry Placeholder="enter password"
-                   Text="{Binding Password, Mode=TwoWay}"
-                   IsPassword="True"
-                   WidthRequest="400" 
-                   HeightRequest="40"/>
-            <Button Text="Login"
-                    Command="{Binding LoginCommand}"
-                    WidthRequest="400"
-                    HeightRequest="40"/>
-
-        </StackLayout>
-    </Grid>
+    <StackLayout Padding="20">
+        <Entry Placeholder="Username" Text="{Binding Username}" />
+        <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
+        <Button Text="Login" Command="{Binding LoginCommand}" />
+    </StackLayout>
 
 </ContentPage>
