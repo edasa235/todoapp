@@ -1,255 +1,268 @@
-using System;
-using Npgsql;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+    using System;
+    using Npgsql;
+    using System.Collections.ObjectModel;
+    using System.Threading.Tasks;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
 
-namespace todoapp.viewmodel
-{
-    public class DatabaseHandler
+    namespace todoapp.viewmodel
     {
-        private string connString;
-
-        public DatabaseHandler(string connectionString)
+        public class DatabaseHandler
         {
-            connString = connectionString;
-        }
+            private string connString;
 
-        public void AddTask(string task, int priority)
-        {
-            using (var conn = new NpgsqlConnection(connString))
+            public DatabaseHandler(string connectionString)
             {
-                conn.Open();
-
-                var getMaxIdSql = "SELECT COALESCE(MAX(task_id), 0) FROM todo";
-                int maxId;
-
-                using (var getMaxIdCmd = new NpgsqlCommand(getMaxIdSql, conn))
-                {
-                    maxId = Convert.ToInt32(getMaxIdCmd.ExecuteScalar());
-                }
-
-                var newTaskId = maxId + 1;
-
-                var sql = "INSERT INTO todo (task_id, task, completed, priority) VALUES (@id, @task, false, @priority)";
-                using (var cmd = new NpgsqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("id", newTaskId);
-                    cmd.Parameters.AddWithValue("task", task);
-                    cmd.Parameters.AddWithValue("priority", priority);
-                    cmd.ExecuteNonQuery();
-                }
+                connString = connectionString;
             }
-        }
 
-        public ObservableCollection<string> GetTasks()
-        {
-            ObservableCollection<string> tasks = new ObservableCollection<string>();
-
-            using (var conn = new NpgsqlConnection(connString))
+            public void AddTask(string task, int priority, int userId)
             {
-                conn.Open();
-
-                var sql = "SELECT * FROM todo ORDER BY priority DESC";
-                using (var cmd = new NpgsqlCommand(sql, conn))
+                using (var conn = new NpgsqlConnection(connString))
                 {
-                    using (var reader = cmd.ExecuteReader())
+                    conn.Open();
+
+                    var getMaxIdSql = "SELECT COALESCE(MAX(task_id), 0) FROM todo";
+                    int maxId;
+
+                    using (var getMaxIdCmd = new NpgsqlCommand(getMaxIdSql, conn))
                     {
-                        while (reader.Read())
-                        {
-                            tasks.Add($"ID: {reader.GetInt32(0)}, Task: {reader.GetString(1)}, Completed: {reader.GetBoolean(2)}, Priority: {reader.GetInt32(3)}");
-                        }
+                        maxId = Convert.ToInt32(getMaxIdCmd.ExecuteScalar());
+                    }
+
+                    var newTaskId = maxId + 1;
+
+                    var sql = "INSERT INTO todo (task, completed, priority, user_id) VALUES (@task, @completed, @priority, @user_id)";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("task", task);
+                        cmd.Parameters.AddWithValue("completed", false);
+                        cmd.Parameters.AddWithValue("priority", priority);
+                        cmd.Parameters.AddWithValue("user_id", userId); // Include userId parameter
+                        cmd.ExecuteNonQuery();
                     }
                 }
             }
 
-            return tasks;
-        }
 
-        public void IncreasePriority(int taskId)
-        {
-            using (var conn = new NpgsqlConnection(connString))
+            public ObservableCollection<string> GetTasksForUser(int userId)
             {
-                conn.Open();
+                ObservableCollection<string> tasks = new ObservableCollection<string>();
 
-                var sql = "UPDATE todo SET priority = priority + 1 WHERE task_id = @id";
-                using (var cmd = new NpgsqlCommand(sql, conn))
+                using (var conn = new NpgsqlConnection(connString))
                 {
-                    cmd.Parameters.AddWithValue("id", taskId);
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    conn.Open();
+
+                    var sql = "SELECT * FROM todo WHERE user_id = @user_id ORDER BY priority DESC";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("user_id", userId); // Pass userId as parameter
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                tasks.Add($"ID: {reader.GetInt32(0)}, Task: {reader.GetString(1)}, Completed: {reader.GetBoolean(2)}, Priority: {reader.GetInt32(3)}");
+                            }
+                        }
+                    }
+                }
+
+                return tasks;
+            }
+
+
+            public void IncreasePriority(int taskId)
+            {
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+
+                    var sql = "UPDATE todo SET priority = priority + 1 WHERE task_id = @id";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("id", taskId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            public void DecreasePriority(int taskId)
+            {
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+
+                    var sql = "UPDATE todo SET priority = CASE WHEN priority > 0 THEN priority - 1 ELSE 0 END WHERE task_id = @id";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("id", taskId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            public void UpdateTask(int taskId)
+            {
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+
+                    var sql = "UPDATE todo SET completed = true WHERE task_id = @id";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("id", taskId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            public void UpdateTaskName(int taskId, string newTaskName)
+            {
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+
+                    var sql = "UPDATE todo SET task = @task WHERE task_id = @id";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("id", taskId);
+                        cmd.Parameters.AddWithValue("task", newTaskName);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            public void DeleteTask(int taskId)
+            {
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+
+                    var sql = "DELETE FROM todo WHERE task_id = @id";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("id", taskId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }
 
-        public void DecreasePriority(int taskId)
+        public partial class MainViewModel : ObservableObject
         {
-            using (var conn = new NpgsqlConnection(connString))
+            private DatabaseHandler databaseHandler;
+            private readonly string _connectionString;
+            private int _userId; // Define userId field
+
+            // Define a property to expose the user ID
+            public int UserId
             {
-                conn.Open();
-
-                var sql = "UPDATE todo SET priority = CASE WHEN priority > 0 THEN priority - 1 ELSE 0 END WHERE task_id = @id";
-                using (var cmd = new NpgsqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("id", taskId);
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                }
+                get => _userId;
+                set => SetProperty(ref _userId, value);
             }
-        }
 
-        public void UpdateTask(int taskId)
-        {
-            using (var conn = new NpgsqlConnection(connString))
+            public MainViewModel(string connectionString, int userId) // Accept userId as parameter
             {
-                conn.Open();
+                _connectionString = connectionString;
+                _userId = userId;
+                databaseHandler = new DatabaseHandler(_connectionString);
+                items = new ObservableCollection<string>(); // Initialize empty collection initially
+                text = string.Empty; // Initialize 'text' to a non-null value
 
-                var sql = "UPDATE todo SET completed = true WHERE task_id = @id";
-                using (var cmd = new NpgsqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("id", taskId);
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                }
+                // Call LoadTasks method here
+                LoadTasks();
             }
-        }
-
-        public void UpdateTaskName(int taskId, string newTaskName)
-        {
-            using (var conn = new NpgsqlConnection(connString))
-            {
-                conn.Open();
-
-                var sql = "UPDATE todo SET task = @task WHERE task_id = @id";
-                using (var cmd = new NpgsqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("id", taskId);
-                    cmd.Parameters.AddWithValue("task", newTaskName);
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void DeleteTask(int taskId)
-        {
-            using (var conn = new NpgsqlConnection(connString))
-            {
-                conn.Open();
-
-                var sql = "DELETE FROM todo WHERE task_id = @id";
-                using (var cmd = new NpgsqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("id", taskId);
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                }
-            }
-        }
-    }
-
-    public partial class MainViewModel : ObservableObject
-    {
-        private DatabaseHandler databaseHandler;
-        private readonly string _connectionString;
-
-        public MainViewModel(string connectionString)
-        {
-            _connectionString = connectionString;
-            databaseHandler = new DatabaseHandler(_connectionString);
-            items = new ObservableCollection<string>(); // Initialize empty collection initially
-            text = string.Empty; // Initialize 'text' to a non-null value
     
-            // Call LoadTasks method here
-            LoadTasks();
-        }
-        
-        private void LoadTasks()
-        {
-            items = databaseHandler.GetTasks();
-        }
-
-        [ObservableProperty]
-        ObservableCollection<string> items;
-
-        [ObservableProperty]
-        string text;
-
-        [RelayCommand]
-        void AddCommand()
-        {
-            if (string.IsNullOrWhiteSpace(Text))
-                return;
-
-            databaseHandler.AddTask(Text, 0); // Assign default priority of 0
-            Items = databaseHandler.GetTasks(); // Refresh the tasks after adding
-            Text = string.Empty;
-        }
-
-        [RelayCommand]
-        void Delete(string s)
-        {
-            if (Items.Contains(s))
+            private void LoadTasks()
             {
-                var taskId = GetTaskIdFromDisplayString(s);
-                databaseHandler.DeleteTask(taskId);
-                Items = databaseHandler.GetTasks(); // Refresh the tasks after deleting
+                // Query tasks for the logged-in user based on user_id
+                items = databaseHandler.GetTasksForUser(_userId);
             }
-        }
+            [ObservableProperty]
+            ObservableCollection<string> items;
 
-        private async Task<string> PromptUserForNewTaskNameAsync()
-        {
-            return await App.Current.MainPage.DisplayPromptAsync("Edit Task", "Enter the new task name:", "OK", "Cancel", "New Task Name");
-        }
+            [ObservableProperty]
+            string text;
 
-        [RelayCommand]
-        public async void Edit(string s)
-        {
-            if (Items.Contains(s))
+            [RelayCommand]
+            void AddCommand()
             {
-                var taskId = GetTaskIdFromDisplayString(s);
-                var newTaskName = await PromptUserForNewTaskNameAsync(); // Await here
-                databaseHandler.UpdateTaskName(taskId, newTaskName);
-                Items = databaseHandler.GetTasks(); // Refresh the tasks after editing
-            }
-        }
+                if (string.IsNullOrWhiteSpace(Text))
+                    return;
 
-        [RelayCommand]
-        public void Complete(string s)
-        {
-            if (Items.Contains(s))
+                databaseHandler.AddTask(Text, 0, _userId); // Pass userId to AddTask method
+                Items = databaseHandler.GetTasksForUser(_userId); // Refresh the tasks after adding
+                Text = string.Empty;
+            }
+
+            [RelayCommand]
+            void Delete(string s)
             {
-                var taskId = GetTaskIdFromDisplayString(s);
-                databaseHandler.UpdateTask(taskId);
-                Items = databaseHandler.GetTasks(); // Refresh the tasks after marking as completed
+                if (Items.Contains(s))
+                {
+                    var taskId = GetTaskIdFromDisplayString(s);
+                    databaseHandler.DeleteTask(taskId);
+                    Items = databaseHandler.GetTasksForUser(_userId); // Refresh the tasks after deleting
+                }
             }
-        }
 
-        [RelayCommand]
-        public void IncreasePriorityCommand(string s)
-        {
-            if (Items.Contains(s))
+            private async Task<string> PromptUserForNewTaskNameAsync()
             {
-                var taskId = GetTaskIdFromDisplayString(s);
-                databaseHandler.IncreasePriority(taskId);
-                Items = databaseHandler.GetTasks(); // Refresh the tasks after increasing priority
+                return await App.Current.MainPage.DisplayPromptAsync("Edit Task", "Enter the new task name:", "OK", "Cancel", "New Task Name");
             }
-        }
 
-        [RelayCommand]
-        public void DecreasePriorityCommand(string s)
-        {
-            if (Items.Contains(s))
+            [RelayCommand]
+            public async void Edit(string s)
             {
-                var taskId = GetTaskIdFromDisplayString(s);
-                databaseHandler.DecreasePriority(taskId);
-                Items = databaseHandler.GetTasks(); // Refresh the tasks after decreasing priority
+                if (Items.Contains(s))
+                {
+                    var taskId = GetTaskIdFromDisplayString(s);
+                    var newTaskName = await PromptUserForNewTaskNameAsync();
+                    databaseHandler.UpdateTaskName(taskId, newTaskName);
+                    Items = databaseHandler.GetTasksForUser(_userId); // Refresh the tasks after editing
+                }
             }
-        }
 
-        // Helper method to extract Task ID from display string (assuming the format is "ID: {id}, Task: {task}, Completed: {completed}")
-        private int GetTaskIdFromDisplayString(string displayString)
-        {
-            var idStartIndex = displayString.IndexOf(":") + 1;
-            var idEndIndex = displayString.IndexOf(",");
-            var idSubstring = displayString.Substring(idStartIndex, idEndIndex - idStartIndex).Trim();
-            return int.Parse(idSubstring);
+            [RelayCommand]
+            public void Complete(string s)
+            {
+                if (Items.Contains(s))
+                {
+                    var taskId = GetTaskIdFromDisplayString(s);
+                    databaseHandler.UpdateTask(taskId);
+                    Items = databaseHandler.GetTasksForUser(_userId); // Refresh the tasks after marking as completed
+                }
+            }
+
+            [RelayCommand]
+            public void IncreasePriorityCommand(string s)
+            {
+                if (Items.Contains(s))
+                {
+                    var taskId = GetTaskIdFromDisplayString(s);
+                    databaseHandler.IncreasePriority(taskId);
+                    Items = databaseHandler.GetTasksForUser(_userId); // Refresh the tasks after increasing priority
+                }
+            }
+
+            [RelayCommand]
+            public void DecreasePriorityCommand(string s)
+            {
+                if (Items.Contains(s))
+                {
+                    var taskId = GetTaskIdFromDisplayString(s);
+                    databaseHandler.DecreasePriority(taskId);
+                    Items = databaseHandler.GetTasksForUser(_userId); // Refresh the tasks after decreasing priority
+                }
+            }
+
+            // Helper method to extract Task ID from display string (assuming the format is "ID: {id}, Task: {task}, Completed: {completed}")
+            private int GetTaskIdFromDisplayString(string displayString)
+            {
+                var idStartIndex = displayString.IndexOf(":") + 1;
+                var idEndIndex = displayString.IndexOf(",");
+                var idSubstring = displayString.Substring(idStartIndex, idEndIndex - idStartIndex).Trim();
+                return int.Parse(idSubstring);
+            }
         }
     }
-}
