@@ -5,13 +5,16 @@
              x:DataType="viewmodel:signupviewmodel">
 
     <ContentPage.BindingContext>
-        <viewmodel:signupviewmodel/>
+        <viewmodel:signupviewmodel />
     </ContentPage.BindingContext>
 
     <StackLayout Padding="20">
         <Entry Placeholder="Username" Text="{Binding Username}" />
         <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
         <Button Text="Sign Up" Command="{Binding SignUpCommand}" />
+        <Button Text="Already have an account? Go to Login"
+                Command="{Binding GoToLoginPageCommand}" />
+
     </StackLayout>
 
 </ContentPage>

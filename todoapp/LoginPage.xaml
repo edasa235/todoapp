@@ -5,7 +5,7 @@
              x:DataType="viewmodel:LoginViewModel">
 
     <ContentPage.BindingContext>
-        <viewmodel:LoginViewModel/>
+        <viewmodel:LoginViewModel />
     </ContentPage.BindingContext>
 
     <StackLayout Padding="20">

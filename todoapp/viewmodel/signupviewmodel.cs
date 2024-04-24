@@ -2,12 +2,13 @@ using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using todoapp;
 
 namespace todoapp.viewmodel
 {
-    public class signupviewmodel : INotifyPropertyChanged
+    public partial class signupviewmodel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -83,6 +84,32 @@ namespace todoapp.viewmodel
             }
         }
 
+        [RelayCommand]
+        public void GoToLoginPage()
+        {
+            try
+            {
+                if (Application.Current.MainPage is NavigationPage navigationPage)
+                {
+                    navigationPage.PushAsync(new LoginPage());
+                    // Display success message
+                    Application.Current.MainPage.DisplayAlert("Success", "Navigated to login page.", "OK");
+                }
+                else
+                {
+                    // Display error message if the current page is not a NavigationPage
+                    Application.Current.MainPage.DisplayAlert("Error", "Unable to navigate to login page.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error message
+                Console.WriteLine(ex.Message);
+
+                // Display error message
+                Application.Current.MainPage.DisplayAlert("Error", "An error occurred during navigation.", "OK");
+            }
+        }
 
         public void NavigateToLogin()
         {
