@@ -22,7 +22,12 @@
                 Command="{Binding AddCommandCommand}"
                 Grid.Row="1"
                 Grid.Column="1" />
-        <Label Text="{Binding UserId}" />
+        <Label Text="User ID: "
+               FontSize="20"
+               Grid.Row="1"
+               Grid.Column="1"/>
+        <Label Text="{Binding UserId}"
+               FontSize="20"/>
 
 
         <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
@@ -58,11 +63,13 @@
                             <StackLayout Orientation="Horizontal">
                                 <Button Text="▲"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=IncreasePriorityCommandCommand}"
-                                        CommandParameter="{Binding .}" />
+                                        CommandParameter="{Binding .}" 
+                                        BackgroundColor="Transparent"/>
                                 <Button Text="▼"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DecreasePriorityCommandCommand}"
                                         CommandParameter="{Binding .}" />
-                                <Label Text="{Binding .}" FontSize="24" />
+                                <Label Text="{Binding .}" FontSize="24"
+                                       BackgroundColor="Transparent"/>
                             </StackLayout>
                         </Frame>
                     </SwipeView>

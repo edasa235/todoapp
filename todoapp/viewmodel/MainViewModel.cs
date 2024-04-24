@@ -62,8 +62,9 @@ namespace todoapp.viewmodel
                     {
                         while (reader.Read())
                         {
+                            string priorityString = new string('*', reader.GetInt32(3)); // Convert priority to asterisks
                             tasks.Add(
-                                $"ID: {reader.GetInt32(0)}, Task: {reader.GetString(1)}, Completed: {reader.GetBoolean(2)}, Priority: {reader.GetInt32(3)}");
+                                $"ID: {reader.GetInt32(0)}, Task: {reader.GetString(1)}, Completed: {reader.GetBoolean(2)}, Priority: {priorityString}");
                         }
                     }
                 }
@@ -71,8 +72,6 @@ namespace todoapp.viewmodel
 
             return tasks;
         }
-
-
         public void IncreasePriority(int taskId)
         {
             using (var conn = new NpgsqlConnection(connString))
@@ -156,7 +155,6 @@ namespace todoapp.viewmodel
         private DatabaseHandler databaseHandler;
         private readonly string _connectionString;
         private int _userId; // Define userId field
-
         public int UserId
         {
             get => _userId;
